@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-Advice adviceFromMap(String str) => Advice.fromMap(json.decode(str));
+Advice adviceFromMap(String str) => Advice.fromJson(json.decode(str));
 
 String adviceToMap(Advice data) => json.encode(data.toMap());
 
@@ -11,7 +11,7 @@ class Advice {
         required this.slip,
     });
 
-    factory Advice.fromMap(Map<String, dynamic> json) => Advice(
+    factory Advice.fromJson(Map<String, dynamic> json) => Advice(
         slip: Slip.fromMap(json["slip"]),
     );
 

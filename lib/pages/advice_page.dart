@@ -11,7 +11,7 @@ class AdvicePage extends StatefulWidget {
 }
 
 class _AdvicePageState extends State<AdvicePage> {
-  String advice = 'Advice of the day';
+  String advice = 'The advice of the day is: ...';
   Advice? data;
 
   void handleGetAdvice() async {
@@ -36,38 +36,74 @@ class _AdvicePageState extends State<AdvicePage> {
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 236, 61, 105),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 40,
               ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Color.fromARGB(255, 236, 61, 105),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [BoxShadow(
+                    color: Colors.pink.withOpacity(0.2),
+                    blurRadius: 15,
+                    spreadRadius: 4,
+                  ),],
+                  border: Border.all(
+                    color: Color.fromARGB(131, 236, 61, 105),
                   ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: ListTile(
-                        subtitle: Text(
-                          'O conselho do dia é: ...',
+                child: Center(
+                  child: data != null
+                      ? Text(
+                          data!.slip.advice,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          advice,
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),
+            const SizedBox(height: 30),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(16),
+                shape: const StadiumBorder(),
+                backgroundColor: const Color.fromARGB(255, 236, 61, 105),
+              ),
+              child: Text(
+                'Generate',
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.7,
+                  ),
+                ),
+              ),
+              onPressed: () => handleGetAdvice(),
+            )
           ],
         ),
       ),
